@@ -1,7 +1,12 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tictic/homepage.dart';
+
+import 'login/if_login.dart';
+import 'login/login.dart';
 
 class gamepage extends StatefulWidget {
   const gamepage({super.key, required this.player1, required this.player2});
@@ -12,6 +17,13 @@ class gamepage extends StatefulWidget {
 }
 
 class _gamepageState extends State<gamepage> {
+  String? uid=FirebaseAuth.instance.currentUser?.uid;
+  adduser(){
+    print(uid.toString());
+   FirebaseFirestore.instance.collection('tic tac toe').doc(uid).set({'winner':_winner=="X"?widget.player1.toString():widget.player2.toString(),'looser':_winner=="X"?widget.player2.toString():widget.player1.toString()});
+  utils().toastmess("doe");
+ // utils().toastmess("new user");
+  }
   late List<List<String>>_board;
   late String _currentplayer;
   late String _winner;
@@ -77,6 +89,7 @@ class _gamepageState extends State<gamepage> {
 
       if(_winner!="")
         {
+          adduser();
           print( _winner=="X"?widget.player1+"Won":_winner=="O"?widget.player2+"Won":"Tie,better Luck next time");
           //_reset();
           AwesomeDialog(
@@ -100,7 +113,7 @@ class _gamepageState extends State<gamepage> {
       body: SafeArea(
         child: SingleChildScrollView(scrollDirection: Axis.vertical,
           child: Column(children: [
-            Row(mainAxisAlignment:MainAxisAlignment.end,children: [TextButton(onPressed: (){}, child: Text("History"))],),
+            Row(mainAxisAlignment:MainAxisAlignment.end,children: [TextButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>islogin()));}, child: Text("History"))],),
             SizedBox(height: 30,),
             Padding(
               padding: const EdgeInsets.only(left: 28.0,right: 28.0),
@@ -108,7 +121,7 @@ class _gamepageState extends State<gamepage> {
                 Text("Turn : ",style: GoogleFonts.montserrat(color: Colors.white,fontSize: 30,fontWeight: FontWeight.bold),),
                 Expanded(
                   child: Text(
-                    _currentplayer=="X"?widget.player1.toString().length>8?widget.player1.toString().substring(0,8)+"...":widget.player2:widget.player2.toString().length>8?widget.player2.toString().substring(0,8)+"...":widget.player2,
+                    _currentplayer=="X"?widget.player1.toString().length>8?widget.player1.toString().substring(0,8)+"...":widget.player1:widget.player2.toString().length>8?widget.player2.toString().substring(0,8)+"...":widget.player2,
                       style: GoogleFonts.montserrat(color: Colors.white,fontSize: 26,fontWeight: FontWeight.w600),
                   ),
                 ),
@@ -144,19 +157,19 @@ class _gamepageState extends State<gamepage> {
                   );
                   } ),
             ),
-            SizedBox(height: 30,),
+            SizedBox(height: 50,),
 
             Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 GestureDetector(onTap: (){setState(() {
                   _reset();
                 });},
-                  child: Container(height: 50,width: 100,
+                  child: Container(height: 60,width: 130,
                     child: Card(
                       semanticContainer: true,
                       color: Colors.greenAccent,
                       elevation: 5,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                       child: Center(child: Text("Play Again"),),
                     ),
                   ),
@@ -164,12 +177,12 @@ class _gamepageState extends State<gamepage> {
                 GestureDetector(onTap: (){setState(() {
                   Navigator.push(context, MaterialPageRoute(builder: (context)=>homepage()));
                 });},
-                  child: Container(height: 50,width: 100,
+                  child: Container(height: 60,width: 130,
                     child: Card(
                       semanticContainer: true,
                       color: Colors.greenAccent,
                       elevation: 5,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                       child: Center(child: Text(" Home "),),
                     ),
                   ),
