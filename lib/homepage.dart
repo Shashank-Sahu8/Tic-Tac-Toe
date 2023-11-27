@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:tictic/login/login.dart';
 import 'game_page.dart';
 import 'login/iflogin2.O.dart';
 
@@ -11,14 +13,36 @@ class homepage extends StatefulWidget {
   @override
   State<homepage> createState() => _homepageState();
 }
-
+final FirebaseAuth _auth=FirebaseAuth.instance;
+String k="No mail";
 class _homepageState extends State<homepage> {
+
+
+  getemail()
+  {
+    if(_auth.currentUser?.email!=null)
+      {
+        setState(() {
+          k=_auth.currentUser!.email.toString();//Text(_auth.currentUser!.email.toString(),style: TextStyle(color: Colors.blueGrey,fontSize: 17));
+    });}
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState(() {
+      getemail();
+    });
+  }
   final GlobalKey<FormState>_formKey=GlobalKey<FormState>();
   final TextEditingController player1=TextEditingController();
   final TextEditingController player2=TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading:false,
+        backgroundColor: Color(0xff1E3A4C),elevation: 0,actions: [TextButton(onPressed: (){Navigator.push(context,MaterialPageRoute(builder: (context)=>iflogin2(player1: player1.text, player2: player2.text,)));}, child: Text("Log In/Log Out"))],),
       backgroundColor: Color(0xff1E3A4C),
       body: SafeArea(
         child: Container(
@@ -26,7 +50,7 @@ class _homepageState extends State<homepage> {
             child: Column(mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 70,),
+                SizedBox(height: 40,),
                 CircleAvatar(backgroundImage: AssetImage('assets/tic-tac-toe-fotor-2023111210659.png'),radius: 50),
                 SizedBox(height: 50,),
                 Text("Enter Players Name",style: GoogleFonts.montserrat(fontSize: 28,fontWeight: FontWeight.w700,color:Colors.white,shadows: <Shadow>[Shadow(offset: Offset(1, 1),blurRadius: 6,color: Colors.blueAccent)]),),
@@ -73,7 +97,7 @@ class _homepageState extends State<homepage> {
                               icon: Icon(FontAwesome.user_ninja,color: Colors.grey,)),
                           validator: (value){if(value!.isEmpty){return 'Enter Player name';}return null;},
                         ),
-                          SizedBox(height: 40,),
+                          SizedBox(height: 60,),
                           ElevatedButton(onPressed: (){
                             if(_formKey.currentState!.validate()){
                               Navigator.push(context,MaterialPageRoute(builder: (context)=>iflogin2(player1: player1.text, player2: player2.text,)));
@@ -90,6 +114,17 @@ class _homepageState extends State<homepage> {
                       ],
                     ),
                   )
+                ),
+                SizedBox(height: 110,),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text("email: ",style: TextStyle(color: Colors.grey,fontSize: 18),),
+                      SizedBox(width: 5,),
+                      Text(k,style: TextStyle(color: Colors.blueGrey,fontSize: 17))
+                    ],
+                  ),
                 ),
               ],
             ),

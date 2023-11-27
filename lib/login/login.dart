@@ -15,7 +15,7 @@ class login extends StatefulWidget {
   @override
   State<login> createState() => _loginState();
 }
-bool obtext=false;
+bool obtext=true;
 final  _auth = FirebaseAuth.instance;
 String? uid=_auth.currentUser?.uid;
 
@@ -52,9 +52,10 @@ class _loginState extends State<login> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(automaticallyImplyLeading: true,iconTheme: IconThemeData(color: Colors.blueGrey),),
-      backgroundColor: Theme.of(context).colorScheme.background,
+    return Scaffold(backgroundColor: Color(0xff1E3A4C),
+      appBar: AppBar(
+        backgroundColor: Color(0xff1E3A4C),elevation: 0,
+        automaticallyImplyLeading: true,iconTheme: IconThemeData(color: Colors.blueGrey),),
       body: Container(
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
@@ -63,7 +64,7 @@ class _loginState extends State<login> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 80,),
-              Text("Login",textAlign: TextAlign.center,style: TextStyle(fontSize: 36,fontWeight: FontWeight.w700,color: Theme.of(context).colorScheme.onPrimaryContainer),),
+              Text("Login",textAlign: TextAlign.center,style: TextStyle(fontSize: 40,fontWeight: FontWeight.w700,color: Colors.white),),
               SizedBox(height: 50,),
               Form(
                   key: _formfield,
@@ -74,32 +75,78 @@ class _loginState extends State<login> {
                       children: [
                         TextFormField(
                           keyboardType: TextInputType.emailAddress,
-                          cursorColor: Theme.of(context).colorScheme.tertiary,
+                          cursorColor: Colors.pinkAccent,
                           controller: emailcontroller,
+                          style: TextStyle(color: Colors.white),
                           decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+                              focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+                              border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+                              enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blueGrey)),
                               hintText: "Email",
                               helperText: "e.g. example@gmail.com",
-                              icon: Icon(Icons.email,color: Colors.blueGrey,)),
+                              fillColor: Colors.white,
+                              focusColor: Colors.white,
+                              hintStyle: TextStyle(color: Colors.blueGrey),
+                              icon: Icon(Icons.email,color: Colors.grey,)),
                           validator: (value){if(value!.isEmpty){return 'Enter email';}return null;},
                         ),
+                        // TextFormField(
+                        //   keyboardType: TextInputType.emailAddress,
+                        //   cursorColor: Theme.of(context).colorScheme.tertiary,
+                        //   controller: emailcontroller,
+                        //   decoration: InputDecoration(
+                        //     fillColor: Colors.white,
+                        //       focusColor: Colors.white,
+                        //       hintText: "Email",
+                        //       helperText: "e.g. example@gmail.com",
+                        //       icon: Icon(Icons.email,color: Colors.blueGrey,)),
+                        //   validator: (value){if(value!.isEmpty){return 'Enter email';}return null;},
+                        // ),
                         SizedBox(
                           height: 20,
                         ),
+
+
                         TextFormField(
                           keyboardType: TextInputType.text,
-                          cursorColor: Theme.of(context).colorScheme.tertiary,
                           obscureText: obtext,
+                          cursorColor: Colors.pinkAccent,
                           controller: password,
+                          style: TextStyle(color: Colors.white),
                           decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+                              focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+                              border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+                              enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blueGrey)),
                               hintText: "Password",
                               helperText: "Name@123...",
+                              fillColor: Colors.white,
+                              focusColor: Colors.white,
+                              hintStyle: TextStyle(color: Colors.blueGrey),
                               icon: IconButton(icon:Icon(obtext!=false?Bootstrap.eye_fill:Bootstrap.eye_slash,color: Colors.blueGrey,) ,onPressed: (){setState(() {
                                 setState(() {
                                   obtext=!obtext;
                                 });
                               });},)),
                           validator: (value){if(value!.isEmpty){return 'Enter password';}return null;},
-                        )
+                        ),
+
+                        // TextFormField(
+                        //   keyboardType: TextInputType.text,
+                        //   cursorColor: Theme.of(context).colorScheme.tertiary,
+                        //   obscureText: obtext,
+                        //   controller: password,
+                        //   decoration: InputDecoration(
+                        //       hintText: "Password",
+                        //       helperText: "Name@123...",
+                        //       icon: IconButton(icon:Icon(obtext!=false?Bootstrap.eye_fill:Bootstrap.eye_slash,color: Colors.blueGrey,) ,onPressed: (){setState(() {
+                        //         setState(() {
+                        //           obtext=!obtext;
+                        //         });
+                        //       });},)),
+                        //   validator: (value){if(value!.isEmpty){return 'Enter password';}return null;},
+                        // )
                       ],
                     ),
                   )
@@ -114,26 +161,15 @@ class _loginState extends State<login> {
               ),
               Padding(
                 padding: const EdgeInsets.only(left:20.0,top: 10,right: 20.0,bottom: 20.0),
-                child: ElevatedButton(style: ElevatedButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))) ,
-
+                child: ElevatedButton(style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))) ,
                     onPressed: () {
-                  //ad();
                       if(_formfield.currentState!.validate()){
                         login();}
-                        //adduser();
-                        // final snapshot= FirebaseFirestore.instance.doc(uid.toString()).collection('marks').doc('user').collection('user_mail').get();
-                        // if(snapshot.toString().isEmpty)
-                        //   {
-                        //     adduser();
-                        //   }
-                        // else
-                        //   {
-                        //     updateuser();
-                        //   }
-                      //}
-                    }
-
-                    , child: Container(height: 50,child: Row(crossAxisAlignment: CrossAxisAlignment.center,mainAxisAlignment: MainAxisAlignment.center,children: [Icon(Icons.login),SizedBox(width: 10,),Text("Login")],),)),
+                    },
+                  child: Container(height: 50,child: Row(crossAxisAlignment: CrossAxisAlignment.center,mainAxisAlignment: MainAxisAlignment.center,children: [Icon(Icons.login,color: Colors.black,),SizedBox(width: 10,),Text("Login",style: TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 22),)],),),
+                ),
               ),
               Row(mainAxisAlignment: MainAxisAlignment.center,
                 children: [

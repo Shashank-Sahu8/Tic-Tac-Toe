@@ -213,7 +213,7 @@ class _gamepageState extends State<gamepage> {
               child: Row(mainAxisAlignment: MainAxisAlignment.center,children: [
                 Text("Turn : ",style: GoogleFonts.montserrat(color: Colors.white,fontSize: 30,fontWeight: FontWeight.bold),),
                 Text(
-                  _currentplayer=="X"?widget.player1.toString().length>8?widget.player1.toString().substring(0,8)+"...":widget.player1:widget.player2.toString().length>8?widget.player2.toString().substring(0,8)+"...":widget.player2,
+                  _currentplayer=="X"?widget.player1.toString().length>7?widget.player1.toString().substring(0,7)+"...":widget.player1:widget.player2.toString().length>7?widget.player2.toString().substring(0,7)+"...":widget.player2,
                     style: GoogleFonts.montserrat(color: Colors.white,fontSize: 26,fontWeight: FontWeight.w600),
                 ),
                 SizedBox(width:10 ,),
@@ -227,7 +227,7 @@ class _gamepageState extends State<gamepage> {
                 color: Colors.blueGrey,
                 borderRadius: BorderRadius.circular(10)
               ),
-              margin: EdgeInsets.all(5),
+              margin: EdgeInsets.all(8),
               child: GridView.builder(
                 itemCount: 9,
                   shrinkWrap: true,
@@ -239,12 +239,12 @@ class _gamepageState extends State<gamepage> {
                   return GestureDetector(
                     onTap: (){move(row, col);},
                     child: Container(
-                      margin: EdgeInsets.all(4),
+                      margin: EdgeInsets.all(5),
                       decoration: BoxDecoration(
-                        color:Colors.lightBlue,
+                        color:Color(0xffADD8E6),
                         borderRadius: BorderRadius.circular(10)
                       ),
-                      child: Center(child: _board[row][col]=="X"?Text(_board[row][col],style: TextStyle(fontSize: 80,fontWeight: FontWeight.bold,color: Colors.red ),):Text(_board[row][col],style: TextStyle(fontSize: 80,fontWeight: FontWeight.bold,color: Colors.black ),)),
+                      child: Center(child: _board[row][col]=="X"?Text(_board[row][col],style: TextStyle(fontSize: 80,fontWeight: FontWeight.bold,color: Color(0xffff4d00) ),):Text(_board[row][col],style: TextStyle(fontSize: 80,fontWeight: FontWeight.bold,color: Colors.green ),)),
                     ),
                   );
                   } ),
@@ -271,7 +271,7 @@ class _gamepageState extends State<gamepage> {
                   child: Container(height: 60,width: 130,
                     child: Card(
                       semanticContainer: true,
-                      color: Colors.greenAccent,
+                      color: Colors.lightGreen,
                       elevation: 15,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                       child: Center(child: Text("PLAY AGAIN",style: TextStyle(fontWeight: FontWeight.w600,color: Colors.white,fontSize: 18),),),
@@ -284,7 +284,7 @@ class _gamepageState extends State<gamepage> {
                   child: Container(height: 60,width: 130,
                     child: Card(
                       semanticContainer: true,
-                      color: Colors.greenAccent,
+                      color: Colors.lightGreen,
                       elevation: 15,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                       child: Center(child: Text("HOME",style: TextStyle(fontWeight: FontWeight.w600,color: Colors.white,fontSize: 18),),),

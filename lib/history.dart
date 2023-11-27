@@ -11,6 +11,7 @@ class history extends StatefulWidget {
   @override
   State<history> createState() => _historyState();
 }
+String uid=_auth.currentUser!.uid;
 final _auth=FirebaseAuth.instance;
 class _historyState extends State<history> {
   @override
@@ -47,7 +48,7 @@ class _historyState extends State<history> {
                   ],
                 ),
               ),
-              Container(
+              Container(margin: EdgeInsets.only(bottom: 60),
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 child: StreamBuilder(
@@ -63,49 +64,52 @@ class _historyState extends State<history> {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: SafeArea(
-                            child: DottedBorder(
-                              color: Colors.white38,
-                              strokeWidth: 1.2,
-                              strokeCap: StrokeCap.butt,
-                              dashPattern: [3,0,3],
-                              borderType: BorderType.RRect,
-                              radius: Radius.circular(5),
-                              child: ListView.builder(
-                                  reverse: true,
-                                  itemCount: docs.length,
-                                  itemBuilder: (context,index){
-                                   return Padding(
-                                     padding: const EdgeInsets.only(left: 8.0,right: 8.0),
-                                     child: Column(
-                                       children: [
-                                         SizedBox(height: 10,),
-                                         Row(
-                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                           children: [
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 50.0),
+                              child: DottedBorder(
+                                color: Colors.white38,
+                                strokeWidth: 1.2,
+                                strokeCap: StrokeCap.butt,
+                                dashPattern: [3,0,3],
+                                borderType: BorderType.RRect,
+                                radius: Radius.circular(5),
+                                child: ListView.builder(
+                                    reverse:false,
+                                    itemCount: docs.length,
+                                    itemBuilder: (context,index){
+                                     return Padding(
+                                       padding: const EdgeInsets.only(left: 8.0,right: 8.0),
+                                       child: Column(
+                                         children: [
+                                           SizedBox(height: 10,),
+                                           Row(
+                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                             children: [
 
-                                             Text("Round ${index+1}"),
-                                             SizedBox(width: 10,),
-                                             Text(docs[index]['winner'].length>8?docs[index]['winner'].substring(0,8)+"...":docs[index]['winner'],style: TextStyle(color: Colors.white,fontSize: 18),),
-                                             SizedBox(width: 40,),
-                                             Text(docs[index]['looser'].length>8?docs[index]['looser'].substring(0,8)+"...":docs[index]['looser'],style: TextStyle(color: Colors.white,fontSize: 18),),
-                                             SizedBox(width: 10,),
-                                             Row(
-                                               children: [
-                                                 Text(docs[index]['hour'],style: TextStyle(color: Colors.white,fontSize: 16),),
-                                                 Text(":",style:TextStyle(color: Colors.white,fontSize: 18),),
-                                                 Text(docs[index]['min'],style: TextStyle(color: Colors.white,fontSize: 16),),
-                                                 Text(":",style:TextStyle(color: Colors.white,fontSize: 18),),
-                                                 Text(docs[index]['sec'],style: TextStyle(color: Colors.white,fontSize: 16),),
-                                               ],
-                                             )
-                                           ],
-                                         ),
-                                         SizedBox(height: 5,),
-                                         Divider(color: Colors.white30,)
-                                       ],
-                                     ),
-                                   );
-                                  }),
+                                               Text("Round ${index+1}"),
+                                               SizedBox(width: 10,),
+                                               Text(docs[index]['winner'].length>8?docs[index]['winner'].substring(0,8)+"...":docs[index]['winner'],style: TextStyle(color: Colors.white,fontSize: 18),),
+                                               SizedBox(width: 40,),
+                                               Text(docs[index]['looser'].length>8?docs[index]['looser'].substring(0,8)+"...":docs[index]['looser'],style: TextStyle(color: Colors.white,fontSize: 18),),
+                                               SizedBox(width: 10,),
+                                               Row(
+                                                 children: [
+                                                   Text(docs[index]['hour'],style: TextStyle(color: Colors.white,fontSize: 16),),
+                                                   Text(":",style:TextStyle(color: Colors.white,fontSize: 18),),
+                                                   Text(docs[index]['min'],style: TextStyle(color: Colors.white,fontSize: 16),),
+                                                   Text(":",style:TextStyle(color: Colors.white,fontSize: 18),),
+                                                   Text(docs[index]['sec'],style: TextStyle(color: Colors.white,fontSize: 16),),
+                                                 ],
+                                               )
+                                             ],
+                                           ),
+                                           SizedBox(height: 5,),
+                                           Divider(color: Colors.white30,)
+                                         ],
+                                       ),
+                                     );
+                                    }),
+                              ),
                             ),
                           ),
                         );

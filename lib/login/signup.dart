@@ -12,6 +12,7 @@ class signup extends StatefulWidget {
 }
 
 class _signupState extends State<signup> {
+  bool obtext=true;
   final formfield=GlobalKey<FormState>();
   final emailcontroller=TextEditingController();
   final passwordcontroller=TextEditingController();
@@ -27,8 +28,9 @@ class _signupState extends State<signup> {
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(automaticallyImplyLeading: true,iconTheme: IconThemeData(color: Colors.blueGrey),),
-      backgroundColor:Theme.of(context).colorScheme.background,
+    return Scaffold(
+      backgroundColor: Color(0xff1E3A4C),
+      appBar: AppBar(backgroundColor: Color(0xff1E3A4C),elevation:0,automaticallyImplyLeading: true,iconTheme: IconThemeData(color: Colors.blueGrey),),
       extendBodyBehindAppBar: true,
       body: SafeArea(
         child: Container(
@@ -55,12 +57,20 @@ class _signupState extends State<signup> {
                         children: [
                           TextFormField(
                             keyboardType: TextInputType.emailAddress,
-                            cursorColor: Colors.orange,
+                            cursorColor: Colors.pinkAccent,
                             controller: emailcontroller,
+                            style: TextStyle(color: Colors.white),
                             decoration: InputDecoration(
+                                focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+                                focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+                                border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+                                enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blueGrey)),
                                 hintText: "Email",
                                 helperText: "e.g. example@gmail.com",
-                                icon: Icon(Icons.email,color: Colors.blueGrey,)),
+                                fillColor: Colors.white,
+                                focusColor: Colors.white,
+                                hintStyle: TextStyle(color: Colors.blueGrey),
+                                icon: Icon(Icons.email,color: Colors.grey,)),
                             validator: (value){if(value!.isEmpty){return 'Enter email';}return null;},
                           ),
                           SizedBox(
@@ -68,28 +78,59 @@ class _signupState extends State<signup> {
                           ),
                           TextFormField(
                             keyboardType: TextInputType.text,
-                            cursorColor: Colors.blueGrey,
-                            obscureText: true,
+                            obscureText: obtext,
+                            cursorColor: Colors.pinkAccent,
                             controller: passwordcontroller,
+                            style: TextStyle(color: Colors.white),
                             decoration: InputDecoration(
+                                focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+                                focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+                                border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+                                enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blueGrey)),
                                 hintText: "Password",
                                 helperText: "Name@123...",
-                                icon: Icon(Bootstrap.keyboard,color: Colors.blueGrey,)),
+                                fillColor: Colors.white,
+                                focusColor: Colors.white,
+                                hintStyle: TextStyle(color: Colors.blueGrey),
+                                icon: IconButton(icon:Icon(obtext!=false?Bootstrap.eye_fill:Bootstrap.eye_slash,color: Colors.blueGrey,) ,onPressed: (){setState(() {
+                                  setState(() {
+                                    obtext=!obtext;
+                                  });
+                                });},)),
                             validator: (value){if(value!.isEmpty){return 'Enter password';}return null;},
                           ),
                           SizedBox(height: 20,),
                           TextFormField(
                             keyboardType: TextInputType.text,
-                            cursorColor: Colors.blueGrey,
-                            obscureText: true,
+                            obscureText: obtext,
+                            cursorColor: Colors.pinkAccent,
                             controller: confirmpasswordcontroller,
+                            style: TextStyle(color: Colors.white),
                             decoration: InputDecoration(
-                                hintText: "Confirm Password",
+                                focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+                                focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+                                border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+                                enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blueGrey)),
+                                hintText: "Password",
                                 helperText: "Name@123...",
+                                fillColor: Colors.white,
+                                focusColor: Colors.white,
+                                hintStyle: TextStyle(color: Colors.blueGrey),
                                 icon: Icon(Bootstrap.keyboard,color: Colors.blueGrey,)),
-                            validator: (value){
-                              if(value!.isEmpty){return 'Enter password again';}return null;},
-                          )
+                            validator: (value){if(value!.isEmpty){return 'Enter password';}return null;},
+                          ),
+                          // TextFormField(
+                          //   keyboardType: TextInputType.text,
+                          //   cursorColor: Colors.blueGrey,
+                          //   obscureText: true,
+                          //   controller: confirmpasswordcontroller,
+                          //   decoration: InputDecoration(
+                          //       hintText: "Confirm Password",
+                          //       helperText: "Name@123...",
+                          //       icon: Icon(Bootstrap.keyboard,color: Colors.blueGrey,)),
+                          //   validator: (value){
+                          //     if(value!.isEmpty){return 'Enter password again';}return null;},
+                          // )
                         ],
                       ),
                     )
@@ -100,7 +141,7 @@ class _signupState extends State<signup> {
                   child: ElevatedButton(
 
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xff03002e),shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))) ,
+                          backgroundColor:Colors.white,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))) ,
 
                       onPressed: () {
                         // if(passwordcontroller!=confirmpasswordcontroller)
@@ -131,7 +172,7 @@ class _signupState extends State<signup> {
                         }
                         }
 
-                      , child: Container(height: 50,child: Row(crossAxisAlignment: CrossAxisAlignment.center,mainAxisAlignment: MainAxisAlignment.center,children: [Icon(Icons.login),SizedBox(width: 10,),Text("Sign up")],),)),
+                      , child: Container(height: 50,child: Row(crossAxisAlignment: CrossAxisAlignment.center,mainAxisAlignment: MainAxisAlignment.center,children: [Icon(Icons.login,color: Colors.blueGrey,),SizedBox(width: 10,),Text("Sign up",style: TextStyle(color: Colors.black,fontWeight: FontWeight.w500,fontSize: 18),)],),)),
                 ),
 
                 SizedBox(height: 20,),
@@ -166,7 +207,7 @@ class utils{
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,
         backgroundColor: Colors.grey[700],
-        textColor: Colors.orange,
+        textColor: Colors.blueGrey,
         fontSize: 16.0
     );
   }

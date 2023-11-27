@@ -18,7 +18,7 @@ class _forgetpassState extends State<forgetpass> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:Theme.of(context).colorScheme.background,
+      backgroundColor: Color(0xff1E3A4C),
       body: Container(
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
@@ -29,7 +29,7 @@ class _forgetpassState extends State<forgetpass> {
               SizedBox(height: 80,),
               Row(mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  IconButton(onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.arrow_back_ios_new_sharp)),
+                  IconButton(onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.arrow_back_ios_new_sharp,color: Colors.white30,)),
                 ],
               ),
               Text("Password",textAlign: TextAlign.center,style: TextStyle(fontSize: 36,fontWeight: FontWeight.w600,color: Theme.of(context).colorScheme.onPrimaryContainer),),
@@ -45,14 +45,32 @@ class _forgetpassState extends State<forgetpass> {
                       children: [
                         TextFormField(
                           keyboardType: TextInputType.emailAddress,
-                          cursorColor: Theme.of(context).colorScheme.tertiary,
+                          cursorColor: Colors.pinkAccent,
                           controller: emailcontroller,
+                          style: TextStyle(color: Colors.white),
                           decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+                              focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+                              border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+                              enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blueGrey)),
                               hintText: "Email",
                               helperText: "e.g. example@gmail.com",
-                              icon: Icon(Icons.email,color: Colors.blueGrey,)),
+                              fillColor: Colors.white,
+                              focusColor: Colors.white,
+                              hintStyle: TextStyle(color: Colors.blueGrey),
+                              icon: Icon(Icons.email,color: Colors.grey,)),
                           validator: (value){if(value!.isEmpty){return 'Enter email';}return null;},
                         ),
+                        // TextFormField(
+                        //   keyboardType: TextInputType.emailAddress,
+                        //   cursorColor: Theme.of(context).colorScheme.tertiary,
+                        //   controller: emailcontroller,
+                        //   decoration: InputDecoration(
+                        //       hintText: "Email",
+                        //       helperText: "e.g. example@gmail.com",
+                        //       icon: Icon(Icons.email,color: Colors.blueGrey,)),
+                        //   validator: (value){if(value!.isEmpty){return 'Enter email';}return null;},
+                        // ),
                         SizedBox(
                           height: 20,
                         ),
@@ -63,13 +81,15 @@ class _forgetpassState extends State<forgetpass> {
               ),
               Padding(
                 padding: const EdgeInsets.only(left:20.0,top: 40,right: 20.0,bottom: 20.0),
-                child: ElevatedButton(style: ElevatedButton.styleFrom(backgroundColor: Color(0xff03002e),shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))) ,
+                child: ElevatedButton(style: ElevatedButton.styleFrom(backgroundColor:Colors.white,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))) ,
 
                     onPressed: (){
+                  if(_formfield.currentState!.validate()){
                       _auth.sendPasswordResetEmail(email: emailcontroller.text.toString()).then((value){utils().toastmess("We have send you email to reset password");Navigator.pop(context);}).onError((error, stackTrace){utils().toastmess(error.toString());});
                     }
+                  }
 
-                    , child: Expanded(child: Container(height: 50,child: Row(crossAxisAlignment: CrossAxisAlignment.center,mainAxisAlignment: MainAxisAlignment.center,children: [Icon(Icons.ads_click),SizedBox(width: 10,),Text("Send email")],),),)),
+                    , child: Expanded(child: Container(height: 50,child: Row(crossAxisAlignment: CrossAxisAlignment.center,mainAxisAlignment: MainAxisAlignment.center,children: [Icon(Icons.ads_click,color: Colors.blueGrey,),SizedBox(width: 10,),Text("Send email",style: TextStyle(color: Colors.black,fontSize: 18,fontWeight: FontWeight.w500),)],),),)),
               ),
             ],
           ),
