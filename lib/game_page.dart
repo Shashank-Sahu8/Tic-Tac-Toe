@@ -217,7 +217,7 @@ class _gamepageState extends State<gamepage> {
                     style: GoogleFonts.montserrat(color: Colors.white,fontSize: 26,fontWeight: FontWeight.w600),
                 ),
                 SizedBox(width:10 ,),
-                Text("( $_currentplayer )",style: GoogleFonts.montserrat(color: _currentplayer=="X"?Colors.red:Colors.black,fontSize: 26,fontWeight: FontWeight.w600),)
+                Text("( $_currentplayer )",style: GoogleFonts.montserrat(color: _currentplayer=="X"?Color(0xffff4d00):Colors.green,fontSize: 26,fontWeight: FontWeight.w600),)
               ],),
             ),
 
