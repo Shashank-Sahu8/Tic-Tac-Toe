@@ -17,19 +17,23 @@ class gamepage extends StatefulWidget {
   @override
   State<gamepage> createState() => _gamepageState();
 }
-
+final _auth=FirebaseAuth.instance;
+String uid=_auth.currentUser!.uid;
 class _gamepageState extends State<gamepage> {
 
   late Timer _timer;
   var __controller = CountTimerController();
 
-  String? uid=FirebaseAuth.instance.currentUser?.uid;
-  adduser(){
-    print(uid.toString());
-   FirebaseFirestore.instance.collection('tic tac toe').doc(uid).set({'winner':_winner=="X"?widget.player1.toString():widget.player2.toString(),'looser':_winner=="X"?widget.player2.toString():widget.player1.toString()});
-  utils().toastmess("doe");
- // utils().toastmess("new user");
-  }
+  // adduser()async{
+  //   print(uid.toString());
+  //   print(time.toString());
+  //   // await FirebaseFirestore.instance
+  //   //     .collection('data')
+  //   //     .add({'text': 'data added through app'});
+  //   await FirebaseFirestore.instance.collection('tic tac toe').doc(uid.toString()).collection('Winner').doc(time.toString()).set({'winner':widget.player1.toString(),'looser':widget.player2.toString(),'hour':hstr.toString(),'min':mstr.toString(),'sec':sstr.toString()});
+  //  //{'winner':_winner=="X"?widget.player1.toString():widget.player2.toString(),'looser':_winner=="X"?widget.player2.toString():widget.player1.toString()}
+  // utils().toastmess("doe");
+  // }
   late List<List<String>>_board;
   late String _currentplayer;
   late String _winner;
@@ -68,7 +72,7 @@ class _gamepageState extends State<gamepage> {
       {
         return;
       }
-    setState(() {
+    setState(()   {
       _board[row][col]=_currentplayer;
       if(_board[row][0] == _currentplayer && _board[row][1] == _currentplayer && _board[row][2] == _currentplayer)
         {
@@ -100,12 +104,14 @@ class _gamepageState extends State<gamepage> {
       //   _winner="Tie";
       // }
       _currentplayer=_currentplayer=="X"?"O":"X";
-
       if(_winner!="")
         {
-          adduser();
+          _timer.cancel();
+          var time=DateTime.now();
+          // !doc.exists? FirebaseFirestore.instance.collection('tic tac toe').doc(uid.toString()).collection('Winner').doc(time.toString()).update({'winner':_winner=="X"?widget.player1:_winner=="O"?widget.player2:"Tie",'looser':_winner=="X"?widget.player2:_winner=="O"?widget.player1:"Tie",'hour':hstr.toString(),'min':mstr.toString(),'sec':sstr.toString()}):
+            FirebaseFirestore.instance.collection('tic tac toe').doc(uid.toString()).collection('Winner').doc(time.toString()).set({'winner':_winner=="X"?widget.player1:_winner=="O"?widget.player2:"Tie",'looser':_winner=="X"?widget.player2:_winner=="O"?widget.player1:"Tie",'hour':hstr.toString(),'min':mstr.toString(),'sec':sstr.toString()});
+
           print( _winner=="X"?widget.player1+"Won":_winner=="O"?widget.player2+"Won":"Tie,better Luck next time");
-          //_reset();
           AwesomeDialog(
             context: context,
             dialogType: DialogType.success,
@@ -260,7 +266,7 @@ class _gamepageState extends State<gamepage> {
             Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 GestureDetector(onTap: (){setState(() {
-                  _reset();
+                   _reset();
                 });},
                   child: Container(height: 60,width: 130,
                     child: Card(

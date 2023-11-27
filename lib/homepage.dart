@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'game_page.dart';
+import 'login/iflogin2.O.dart';
 
 class homepage extends StatefulWidget {
   const homepage({super.key});
@@ -75,7 +76,7 @@ class _homepageState extends State<homepage> {
                           SizedBox(height: 40,),
                           ElevatedButton(onPressed: (){
                             if(_formKey.currentState!.validate()){
-                              Navigator.push(context,MaterialPageRoute(builder: (context)=>gamepage(player1: player1.text, player2: player2.text,)));
+                              Navigator.push(context,MaterialPageRoute(builder: (context)=>iflogin2(player1: player1.text, player2: player2.text,)));
                             }
                           },style: ElevatedButton.styleFrom(
                               elevation: 8,
