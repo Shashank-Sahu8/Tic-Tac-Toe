@@ -53,6 +53,7 @@ dependencies:
   fluttertoast: ^8.2.4
   custom_timer: ^0.2.3
   easy_count_timer: ^0.0.2
+  dotted_border: ^2.1.0
 
 dev_dependencies:
   flutter_test:

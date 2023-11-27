@@ -117,7 +117,7 @@ class _gamepageState extends State<gamepage> {
             dialogType: DialogType.success,
             animType: AnimType.rightSlide,
             btnOkText: "Play Again?",
-            title:  _winner=="X"?widget.player1+"Won":_winner=="O"?widget.player2+"Won":"Tie,better Luck next time",
+            title:  _winner=="X"?widget.player1+"  Won":_winner=="O"?widget.player2+"  Won":"Tie,better Luck next time",
             btnOkOnPress: (){
               _reset();
             }
@@ -201,22 +201,22 @@ class _gamepageState extends State<gamepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff1E3A4C),
+      backgroundColor: Color(0xff1E3A4C),// decoration: BoxDecoration(color:Colors.white,backgroundBlendMode: BlendMode.darken,image: DecorationImage(image: AssetImage('assets/tttbac.png'),fit: BoxFit.fill)),
       body: SafeArea(
         child: SingleChildScrollView(scrollDirection: Axis.vertical,
-          child: Column(children: [
+          child: Column(
+            children: [
             Row(mainAxisAlignment:MainAxisAlignment.end,children: [TextButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>islogin()));}, child: Text("History"))],),
             SizedBox(height: 30,),
             Padding(
               padding: const EdgeInsets.only(left: 28.0,right: 28.0),
-              child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,children: [
+              child: Row(mainAxisAlignment: MainAxisAlignment.center,children: [
                 Text("Turn : ",style: GoogleFonts.montserrat(color: Colors.white,fontSize: 30,fontWeight: FontWeight.bold),),
-                Expanded(
-                  child: Text(
-                    _currentplayer=="X"?widget.player1.toString().length>8?widget.player1.toString().substring(0,8)+"...":widget.player1:widget.player2.toString().length>8?widget.player2.toString().substring(0,8)+"...":widget.player2,
-                      style: GoogleFonts.montserrat(color: Colors.white,fontSize: 26,fontWeight: FontWeight.w600),
-                  ),
+                Text(
+                  _currentplayer=="X"?widget.player1.toString().length>8?widget.player1.toString().substring(0,8)+"...":widget.player1:widget.player2.toString().length>8?widget.player2.toString().substring(0,8)+"...":widget.player2,
+                    style: GoogleFonts.montserrat(color: Colors.white,fontSize: 26,fontWeight: FontWeight.w600),
                 ),
+                SizedBox(width:10 ,),
                 Text("( $_currentplayer )",style: GoogleFonts.montserrat(color: _currentplayer=="X"?Colors.red:Colors.black,fontSize: 26,fontWeight: FontWeight.w600),)
               ],),
             ),
@@ -244,7 +244,7 @@ class _gamepageState extends State<gamepage> {
                         color:Colors.lightBlue,
                         borderRadius: BorderRadius.circular(10)
                       ),
-                      child: Center(child: Text(_board[row][col],style: TextStyle(fontSize: 80,fontWeight: FontWeight.bold,color: _currentplayer=="X"?Colors.red:Colors.black ),)),
+                      child: Center(child: _board[row][col]=="X"?Text(_board[row][col],style: TextStyle(fontSize: 80,fontWeight: FontWeight.bold,color: Colors.red ),):Text(_board[row][col],style: TextStyle(fontSize: 80,fontWeight: FontWeight.bold,color: Colors.black ),)),
                     ),
                   );
                   } ),
@@ -272,9 +272,9 @@ class _gamepageState extends State<gamepage> {
                     child: Card(
                       semanticContainer: true,
                       color: Colors.greenAccent,
-                      elevation: 5,
+                      elevation: 15,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                      child: Center(child: Text("Play Again"),),
+                      child: Center(child: Text("PLAY AGAIN",style: TextStyle(fontWeight: FontWeight.w600,color: Colors.white,fontSize: 18),),),
                     ),
                   ),
                 ),
@@ -285,9 +285,9 @@ class _gamepageState extends State<gamepage> {
                     child: Card(
                       semanticContainer: true,
                       color: Colors.greenAccent,
-                      elevation: 5,
+                      elevation: 15,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                      child: Center(child: Text(" Home "),),
+                      child: Center(child: Text("HOME",style: TextStyle(fontWeight: FontWeight.w600,color: Colors.white,fontSize: 18),),),
                     ),
                   ),
                 ),

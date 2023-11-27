@@ -27,7 +27,7 @@ class _loginState extends State<login> {
   final password=TextEditingController();
 
   void login() async{
-    showDialog(context: context, builder: (context){return const Center(child: CircularProgressIndicator(),);});
+    loading==true?showDialog(context: context, builder: (context){return const Center(child: CircularProgressIndicator(),);}):null;
     setState(() {
       loading=true;
     });
