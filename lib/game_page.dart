@@ -1,10 +1,12 @@
+import 'dart:async';
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tictic/homepage.dart';
-
+import 'package:easy_count_timer/easy_count_timer.dart';
 import 'login/if_login.dart';
 import 'login/login.dart';
 
@@ -17,6 +19,10 @@ class gamepage extends StatefulWidget {
 }
 
 class _gamepageState extends State<gamepage> {
+
+  late Timer _timer;
+  var __controller = CountTimerController();
+
   String? uid=FirebaseAuth.instance.currentUser?.uid;
   adduser(){
     print(uid.toString());
@@ -37,16 +43,24 @@ class _gamepageState extends State<gamepage> {
     _currentplayer="X";
     _winner="";
     _gameover=false;
+    starttimer();
   }
 
   void _reset()
-  {
+  {_timer.cancel();
     setState(() {
       _board=List.generate(3, (_) => List.generate(3,(_)=>""));
       _currentplayer="X";
       _winner="";
       _gameover=false;
+      sec=0;
+      min=0;
+      hour=0;
+      sstr="00";
+      mstr="00";
+      hstr="00";
     });
+    starttimer();
   }
   void move(int row,int col)
   {
@@ -106,6 +120,78 @@ class _gamepageState extends State<gamepage> {
     });
   }
 
+  String hstr="00",mstr="00",sstr="00";
+
+  int hour=0,min=0,sec=0;
+  void starttimer()
+  {
+
+    hour=0;min=0;sec=0;
+    _timer=Timer.periodic(Duration(seconds: 1) ,(time){
+      setState(() {
+       if(sec<59)
+         {
+           sec++;
+           sstr=sec.toString();
+           if(sstr.length==1)
+             sstr="0"+sec.toString();
+         }
+       else
+         {
+           startmin();
+         }
+      });
+    });
+  }
+  void startmin()
+  {
+    setState(() {
+      if(min<59)
+        {
+          sec=0;
+          sstr="00";
+          min++;
+          mstr=min.toString();
+          if(mstr.length==1)
+            mstr="0"+min.toString();
+        }
+      else
+        {
+          hourstart();
+        }
+    });
+  }
+
+  void hourstart()
+  {
+    setState(() {
+      if(hour<12)
+        {
+          min=0;
+          sec=0;
+          sstr;"00";
+          mstr="00";
+          hour++;
+          hstr=hour.toString();
+          if(hstr.length==1)
+            hstr="0"+hour.toString();
+        }
+      else
+        {
+          AwesomeDialog(
+              context: context,
+              dialogType: DialogType.warning,
+              animType: AnimType.rightSlide,
+              btnOkText: "Play Again?",
+              title:  "Oops! Time Up",
+              btnOkOnPress: (){
+                _reset();
+              }
+          )..show();
+        }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -157,8 +243,20 @@ class _gamepageState extends State<gamepage> {
                   );
                   } ),
             ),
-            SizedBox(height: 50,),
-
+            SizedBox(height: 20,),
+             Text(" $hstr : $mstr : $sstr",style: TextStyle(color: Colors.white,fontSize: 29),),
+            // CountTimer(
+            //   colonsTextStyle: TextStyle(color: Colors.white,fontSize: 26),
+            //   timeTextStyle: TextStyle(color: Colors.white,fontSize: 26),
+            //   descriptionTextStyle: TextStyle(color: Colors.white),
+            //   daysDescription: "day",
+            //   hoursDescription: "hour",
+            //   minutesDescription: "minutes",
+            //   secondsDescription: "seconds",
+            //   format: CountTimerFormat.hoursMinutesSeconds,
+            //   controller:CountTimerController(),
+            // ),
+            SizedBox(height: 30),
             Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 GestureDetector(onTap: (){setState(() {

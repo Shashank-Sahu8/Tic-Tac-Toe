@@ -153,6 +153,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.6"
+  custom_timer:
+    dependency: "direct main"
+    description:
+      name: custom_timer
+      sha256: "65af2d6a3f6f232b224ad1dd06dbab9f8473be69800a32934cbd1e6d90276348"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.3"
+  easy_count_timer:
+    dependency: "direct main"
+    description:
+      name: easy_count_timer
+      sha256: "3fee4f800c35ab39f2cb5cd99a7e904ea6c70adc8cfeda47ea96a96743b8fba4"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2"
   fake_async:
     dependency: transitive
     description:
@@ -286,14 +302,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.13.1"
-  flutter_lints:
-    dependency: "direct dev"
-    description:
-      name: flutter_lints
-      sha256: a25a15ebbdfc33ab1cd26c63a6ee519df92338a9c10f122adda92938253bef04
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.3"
   flutter_spinkit:
     dependency: "direct main"
     description:
@@ -464,14 +472,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.8.1"
-  lints:
-    dependency: transitive
-    description:
-      name: lints
-      sha256: "0a217c6c989d21039f1498c3ed9f3ed71b354e69873f13a8dfc3c9fe76f1b452"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.1"
   matcher:
     dependency: transitive
     description:
