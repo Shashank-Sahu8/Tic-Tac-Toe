@@ -1,16 +1,12 @@
 # tictic
 
-Perfect Tic Tac Toe game for user
+Perfect Tic Tac Toe game for user made with Flutter
 
-## Getting Started
+UI of this application
 
-This project is a starting point for a Flutter application.
+![TICTACTOEimg1](https://github.com/Shashank-Sahu8/Tic-Tac-Toe/assets/133399781/9c3aab5d-80ac-43ca-92ee-9b6ebb6966d1)
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Few more pages
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![TICTACTOEimg2](https://github.com/Shashank-Sahu8/Tic-Tac-Toe/assets/133399781/48dc350a-0aa3-4819-98e4-195bfbd3f357)
